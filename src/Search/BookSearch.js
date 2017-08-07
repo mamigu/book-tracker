@@ -1,0 +1,47 @@
+import React, {Component} from "react";
+import * as BooksAPI from '../utils/BooksAPI';
+import SearchBar from "./SearchBar";
+import BooksGrid from "../Common/BooksGrid";
+
+export default class BookSearch extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+            books: []
+        }
+    }
+
+    updateQuery(event) {
+        let query = event.target.value;
+        if(query) {
+            BooksAPI.search(query).then(books => {
+                this.setState({
+                    query: query,
+                    books: books.error ? [] : books
+                })
+            });
+        } else {
+            this.setState({
+                query: query,
+                books: []
+            });
+        }
+    }
+
+    render() {
+        return (
+            <div className="search-books">
+                <SearchBar query={this.state.query}
+                           onChange={this.updateQuery.bind(this)} />
+                <div className="search-books-results">
+                    {this.state.books.length > 0 && (
+                        <BooksGrid books={this.state.books}
+                                   onChange={this.props.onChange}
+                        />
+                    )}
+                </div>
+            </div>
+        );
+    }
+}
