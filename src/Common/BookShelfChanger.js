@@ -8,7 +8,7 @@ export default class BookShelfChanger extends Component {
         return (
             <div className="book-shelf-changer">
                 {book && (
-                        <select onChange={(e) => {onChange(book, e.target.value)}} defaultValue={book.shelf}>
+                        <select onChange={(e) => {onChange(book, e.target.value)}} defaultValue={book.shelf ? book.shelf : "none"}>
                             <option value="none" disabled>Move to...</option>
                             <option value={Constants.ShelfTypes.CURRENTLY_READING.value}>{Constants.ShelfTypes.CURRENTLY_READING.title}</option>
                             <option value={Constants.ShelfTypes.WANT_TO_READ.value}>{Constants.ShelfTypes.WANT_TO_READ.title}</option>
@@ -22,5 +22,6 @@ export default class BookShelfChanger extends Component {
 }
 
 BookShelfChanger.PropTypes = {
+    book: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired
 };

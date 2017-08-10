@@ -13,13 +13,13 @@ export default class Home extends Component {
                 <div className="list-books-content">
                     <div>
                         <BookShelf title={Constants.ShelfTypes.CURRENTLY_READING.title}
-                                   books={this.props.books.filter(b => b.shelf == Constants.ShelfTypes.CURRENTLY_READING.value)}
+                                   books={this.props.books.filter(b => b.shelf === Constants.ShelfTypes.CURRENTLY_READING.value)}
                                    onChange={this.props.onChange} />
                         <BookShelf title={Constants.ShelfTypes.WANT_TO_READ.title}
-                                   books={this.props.books.filter(b => b.shelf == Constants.ShelfTypes.WANT_TO_READ.value)}
+                                   books={this.props.books.filter(b => b.shelf === Constants.ShelfTypes.WANT_TO_READ.value)}
                                    onChange={this.props.onChange} />
                         <BookShelf title={Constants.ShelfTypes.READ.title}
-                                   books={this.props.books.filter(b => b.shelf == Constants.ShelfTypes.READ.value)}
+                                   books={this.props.books.filter(b => b.shelf === Constants.ShelfTypes.READ.value)}
                                    onChange={this.props.onChange} />
                     </div>
                 </div>

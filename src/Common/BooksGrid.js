@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 import Book from "./Book";
 
 export default class BooksGrid extends Component {
@@ -20,3 +22,8 @@ export default class BooksGrid extends Component {
         )
     }
 }
+
+BooksGrid.PropTypes = {
+    books: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired
+};

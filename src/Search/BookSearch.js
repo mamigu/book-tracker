@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
+
 import * as BooksAPI from '../utils/BooksAPI';
 import SearchBar from "./SearchBar";
 import BooksGrid from "../Common/BooksGrid";
@@ -12,13 +14,22 @@ export default class BookSearch extends Component {
         }
     }
 
+    mergeBooksFromShelves(searchedBooks, shelvedBooks) {
+        searchedBooks.forEach(b => {
+            let shelvedBook = shelvedBooks.filter(sb => sb.id === b.id)[0];
+            b.shelf = shelvedBook ? shelvedBook.shelf : b.shelf;
+        })
+        return searchedBooks;
+    }
+
     updateQuery(event) {
         let query = event.target.value;
         if(query) {
             BooksAPI.search(query).then(books => {
+
                 this.setState({
                     query: query,
-                    books: books.error ? [] : books
+                    books: books.error ? [] : this.mergeBooksFromShelves(books, this.props.books)
                 })
             });
         } else {
@@ -37,11 +48,15 @@ export default class BookSearch extends Component {
                 <div className="search-books-results">
                     {this.state.books.length > 0 && (
                         <BooksGrid books={this.state.books}
-                                   onChange={this.props.onChange}
-                        />
+                                   onChange={this.props.onChange} />
                     )}
                 </div>
             </div>
         );
     }
 }
+
+BookSearch.PropTypes = {
+
+    onChange: PropTypes.func.isRequired
+};

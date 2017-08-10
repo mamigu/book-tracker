@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 import BookShelfChanger from "./BookShelfChanger";
 
 export default class Book extends Component {
@@ -10,7 +12,7 @@ export default class Book extends Component {
         return (
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{width: 128, height: 193, backgroundImage: url}}/>
+                    <div className="book-cover" style={{backgroundImage: url}}/>
                     <BookShelfChanger book={book}
                                       onChange={onChange}/>
                 </div>
@@ -23,4 +25,9 @@ export default class Book extends Component {
             </div>
         )
     }
+}
+
+Book.PropTypes = {
+    book: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired
 }
